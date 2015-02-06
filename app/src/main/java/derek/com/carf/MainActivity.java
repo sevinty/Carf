@@ -8,6 +8,8 @@ import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
+
 
 public class MainActivity extends ActionBarActivity {
 
@@ -23,72 +25,60 @@ public class MainActivity extends ActionBarActivity {
         Deck d = new Deck();
 
         Player p = new Player("Derek",1,5);
-
+        String temps = "";
         //Draw five cards into player p hand.
         int counter = 0;
-        while(p.getHandSize()>counter){
+        for(int i = 0; i<5; i++){
             p.drawCard(d.nextCard());
-            counter++;
         }
 
-        //get the values stored in player p hand
-        int temp[] = new int[p.getHandSize()];
-        temp = p.getPlayerHand();
-        String temps = "";
-        for(int i= 0; i <temp.length; i++){
-            if(temp[i] >0 && temp[i]<=13){
-                temps+=temp[i] + "♥   ";
-            }else if(temp[i] >13 && temp[i]<=26){
-                temps+=temp[i]-13 + "♦   ";
-            }else if(temp[i] >26 && temp[i]<=39){
-                temps+=temp[i]-26 + "♣   ";
-            }else if(temp[i] >39 && temp[i]<=52){
-                temps+=temp[i]-39 + "♠   ";
-            }else if(temp[i] >52){
-                temps+="J☻   ";
+        ArrayList<Card> temp;
+        temp = new ArrayList<>(p.getPlayerHand().size());
+        for(int i= 0; i <temp.size(); i++){
+            temp.add(p.getCard(i));
+        }
+
+        for(int i= 0; i <p.getHandSize(); i++){
+
+            temps += p.getCard(i).getValue() + " ";
+
+            if(p.getCard(i).getSuit() == 3){
+                temps +="♠";
+            }else if(p.getCard(i).getSuit() == 2){
+                temps +="♣";
+            }else if(p.getCard(i).getSuit() == 1){
+                temps +="♦";
+            }else if(p.getCard(i).getSuit() == 0){
+                temps +="♥";
             }
-            temps+="\n";
+            temps += "\n";
         }
         t.setText(temps);
         //Player p places card 2 on the table
-        p.placeCard(p.getCard(2),2);
+        p.placeCard(p.getCard(2));
 
-        //get the values of playerTable and display them in a textview
-        temp = new int[p.getTableSize()];
-        temp = p.getPlayerTable();
-        temps ="";
-        for(int i= 0; i <temp.length; i++){
-            if(temp[i] >0 && temp[i]<=13){
-                temps+=temp[i] + "♥   ";
-            }else if(temp[i] >13 && temp[i]<=26){
-                temps+=temp[i]-13 + "♦   ";
-            }else if(temp[i] >26 && temp[i]<=39){
-                temps+=temp[i]-26 + "♣   ";
-            }else if(temp[i] >39 && temp[i]<=52){
-                temps+=temp[i]-39 + "♠   ";
-            }else if(temp[i] >52){
-                temps+="J☻   ";
+        temps = "";
+        for(int i= 0; i <p.getHandSize(); i++){
+
+            temps += p.getCard(i).getValue() + " ";
+
+            if(p.getCard(i).getSuit() == 3){
+                temps +="♠";
+            }else if(p.getCard(i).getSuit() == 2){
+                temps +="♣";
+            }else if(p.getCard(i).getSuit() == 1){
+                temps +="♦";
+            }else if(p.getCard(i).getSuit() == 0){
+                temps +="♥";
             }
-            temps+="\n";
+            temps += "\n";
         }
         t2.setText(temps);
 
-        temp = p.getPlayerHand();
         temps = "";
-        for(int i= 0; i <temp.length; i++){
-            if(temp[i] >0 && temp[i]<=13){
-                temps+=temp[i] + "♥   ";
-            }else if(temp[i] >13 && temp[i]<=26){
-                temps+=temp[i]-13 + "♦   ";
-            }else if(temp[i] >26 && temp[i]<=39){
-                temps+=temp[i]-26 + "♣   ";
-            }else if(temp[i] >39 && temp[i]<=52){
-                temps+=temp[i]-39 + "♠   ";
-            }else if(temp[i] >52){
-                temps+="J☻   ";
-            }
-            temps+="\n";
-        }
+
+        temps+=p.getTableCard(0).getValue();
+
         t3.setText(temps);
 
     }

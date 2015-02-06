@@ -10,6 +10,7 @@ import java.util.Random;
 public class Deck {
    // int[] cards; //integers represent the card values value/4 = card value and type
     ArrayList<Card> cards;
+    ArrayList<Card> discards;
     Random rand;
     Card card;
 
@@ -21,6 +22,7 @@ public class Deck {
         //local variables are initialized
         rand = new Random();
         cards = new ArrayList<>(DECK_SIZE);
+        discards = new ArrayList<>(DECK_SIZE);
         index = -1;
 
         //function call initializes the array
@@ -28,7 +30,7 @@ public class Deck {
         //shuffles the array in a random order
         shuffleDeck();
     }
-
+    //TODO make discard pile
     public Deck(int deckSize){
         //local variables are initialized
         rand = new Random();
@@ -71,11 +73,11 @@ public class Deck {
 
 
     //returns the next card in the array
-    public int nextCard(){
+    public Card nextCard(){
         //increases the current top card index by 1
         index++;
         //returns the value
-        return cards.get(index).getCard();
+        return cards.get(index);
     }
 
 

@@ -32,10 +32,10 @@ public class Player {
     }
 
     //places a card onto the table
-    public void placeCard(int card, int handIndex){
+    public void placeCard(Card card){
 
         for(int i = 0; i<playerHand.size(); i++){
-            if(card == playerHand.get(i).getCard()){
+            if(card.getCard() ==  playerHand.get(i).getCard()){
                 playerTable.add(playerHand.get(i));
                 playerHand.remove(i);
             }
@@ -47,6 +47,8 @@ public class Player {
         //TODO automatically resize arrays when needed.
     }
 
+
+
     //gets the max number of cards player can hold
     public int getHandSize(){
         return playerHand.size();
@@ -56,14 +58,18 @@ public class Player {
     public void drawCard(Card card){
         playerHand.add(card);
 
-        handIndex++;
+
     }
 
 
 
     //gets the card at the index selected
-    public int getCard(int index){
-        return playerHand.get(index).getCard();
+    public Card getCard(int index){
+        return playerHand.get(index);
+    }
+
+    public Card getTableCard(int index){
+        return playerTable.get(index);
     }
 
     //returns the playerHand array
