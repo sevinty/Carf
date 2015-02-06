@@ -1,74 +1,85 @@
 package derek.com.carf;
 
+import java.util.ArrayList;
+
 /**
  * Created by damas_000 on 2/4/2015.
  */
 public class Player {
-    int[] playerHand;
-    int[] playerTable;
+
+     //cards that the player has in their hand.
+    ArrayList<Card> playerHand;
+    //cards that the player has placed on the table.
+    ArrayList<Card> playerTable;
+    //players nickname
     String nickname;
+    //players id TODO should be automatically generated
     int id;
+    //TODO remove un-needed vars
     int handIndex;
     int tableIndex;
 
+
     public Player(String nickname, int id, int handSize){
-        //TODO initialize local variables
+        //obvious
         this.nickname= nickname;
         this.id = id;
-        playerHand = new int[handSize];
-        playerTable = new int[1];
-        handIndex= 0;
-        tableIndex = 0;
+        //set player hand size to the size passed
+        playerHand = new ArrayList<>(handSize);
+
+        //TODO determine best size to set the player's table to, later
+        playerTable = new ArrayList<>(handSize);
     }
 
     //places a card onto the table
     public void placeCard(int card, int handIndex){
-        playerTable[tableIndex]=card;
-        playerHand[handIndex]=-1;
-        moveCards();
 
+        for(int i = 0; i<playerHand.size(); i++){
+            if(card == playerHand.get(i).getCard()){
+                playerTable.add(playerHand.get(i));
+                playerHand.remove(i);
+            }
+        }
+    }
+
+    //resizes the hand size to accommodate more cards
+    public void resizeArray(){
+        //TODO automatically resize arrays when needed.
     }
 
     //gets the max number of cards player can hold
     public int getHandSize(){
-        return playerHand.length;
+        return playerHand.size();
     }
 
     //draws top card from the deck -> stores in playerHand array
-    public void drawCard(int card){
-        playerHand[handIndex] = card;
+    public void drawCard(Card card){
+        playerHand.add(card);
+
         handIndex++;
     }
 
+
+
     //gets the card at the index selected
     public int getCard(int index){
-        return playerHand[index];
+        return playerHand.get(index).getCard();
     }
 
     //returns the playerHand array
-    public int[] getPlayerHand(){
+    public ArrayList getPlayerHand(){
         return playerHand;
     }
 
     //returns the playerTable array
-    public int[] getPlayerTable(){
+    public ArrayList getPlayerTable(){
         return playerTable;
     }
 
     public int getTableSize(){
-        return playerTable.length;
+        return playerTable.size();
     }
 
-    //fixes hand so the last index is the free one.
-    private void moveCards(){
-        int tempIndex = 0; //used for holding the value of where any -1 is stored.
 
-        for(int i =0; i< playerHand.length; i++){
-            if(playerHand[i] == -1 && playerHand.length-1 != i){
-                playerHand[i]=playerHand[i+1];
-                playerHand[i+1] = -1;
-            }
-        }
-    }
 
 }
